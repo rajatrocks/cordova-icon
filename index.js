@@ -132,8 +132,23 @@ var generateIcon = function (platform, icon) {
         if (err) {
             deferred.reject(err);
         } else {
-            deferred.resolve();
-            display.success(icon.name + ' created');
+            ig.crop({
+                srcPath: platform.iconsPath + icon.name,
+                dstPath: platform.iconsPath + icon.name,
+                quality: 1,
+                format: 'png',
+                width: icon.size,
+                height: icon.size,
+            } , function(err, stdout, stderr){
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve();
+                    display.success(icon.name + ' created');
+                }
+            });
+            //deferred.resolve();
+            //display.success(icon.name + ' created');
         }
     });
     return deferred.promise;
