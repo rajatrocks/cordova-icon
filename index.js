@@ -62,6 +62,7 @@ var getPlatforms = function (projectName) {
 var settings = {};
 settings.CONFIG_FILE = 'config.xml';
 settings.ICON_FILE   = 'resources/icon.png';
+settings.TRANSPARENT_ICON_FILE   = 'resources/transparent_icon.png';
 
 /**
  * @var {Object} console utils
@@ -113,8 +114,15 @@ var getProjectName = function () {
  */
 var generateIcon = function (platform, icon) {
     var deferred = Q.defer();
+    var srcPath;
+    if (platform.name == "ios") {
+        srcPath = settings.ICON_FILE;
+    }
+    else {
+        srcPath = settings.TRANSPARENT_ICON_FILE
+    }
     ig.resize({
-        srcPath: settings.ICON_FILE,
+        srcPath: srcPath,
         dstPath: platform.iconsPath + icon.name,
         quality: 1,
         format: 'png',
