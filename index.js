@@ -132,6 +132,8 @@ var generateIcon = function (platform, icon) {
         if (err) {
             deferred.reject(err);
         } else {
+            // For some reason, pngs with transparency are not being 
+            // cropped to square by the resize function. So do it explicitly. 
             ig.crop({
                 srcPath: platform.iconsPath + icon.name,
                 dstPath: platform.iconsPath + icon.name,
